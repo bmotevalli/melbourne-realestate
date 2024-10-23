@@ -3,6 +3,7 @@ import streamlit as st
 from app.models.house import House
 from app.utils.geo import melb_lat_lng
 from app.enums.house import LocationType, Months, WeekOfDay, HouseType
+from app.services.house import predict_price
 
 # Set the page title
 st.set_page_config(
@@ -14,6 +15,12 @@ st.set_page_config(
 st.title("Welcome to Predict House Prices!")
 
 house =  House()
+
+def convert_to_float(val_str, val_default = 0):
+    try:
+        return float(val_str)
+    except:
+        return val_default
 
 def render_house_location():
     loc_options = [item.value for item in LocationType]
@@ -42,8 +49,6 @@ def render_house_location():
     st.write(f"Distance: {house.distance:.2f} km")
 
 
-
-
 def render_other_inputs():
     house_options = [item.name.title() for item in HouseType]
     selected_house_type = st.selectbox("House Type", house_options, index=0, key="house-type")
@@ -52,10 +57,10 @@ def render_other_inputs():
     house.bathroom = st.number_input("Bathroom", min_value=0, max_value=5, value=house.bathroom, key="bathroom")
     house.car = st.number_input("Car Park", min_value=0, max_value=5, value=house.car, key="car")
     house.rooms = st.number_input("Rooms", min_value=0, max_value=5, value=house.rooms, key="rooms")
-    house.landsize = st.text_input("Landsize", value=house.landsize, key="landsize")
-    house.building_area = st.text_input("Building Area", value=house.building_area, key="building_area")
-    house.year_built = st.text_input("Built Year", value=house.year_built, key="year_built")
-    house.year = st.text_input("Sold Year", value=house.year, key="year")
+    house.landsize = st.number_input("Landsize", min_value=100, value=house.landsize, key="landsize")
+    house.building_area = st.number_input("Building Area", min_value=0, max_value=house.landsize, value=house.building_area, key="building_area")
+    house.year_built = st.number_input("Built Year", min_value=1930, max_value=2021, value=house.year_built, key="year_built")
+    house.year = st.number_input("Sold Year", min_value=house.year_built, max_value=2021, value=house.year, key="year")
     
     month_options = [item.name.title() for item in Months]
     selected_month_type = st.selectbox("Month", month_options, index=0, key="month-type")
@@ -70,3 +75,8 @@ def render_other_inputs():
 
 render_house_location()
 render_other_inputs()
+
+
+if st.button("Predict Price"):
+    house.price = predict_price(house)
+    st.success(f"House Price is: {house.price:,.0f} $")

@@ -4,6 +4,8 @@ from typing import Optional
 from app.utils.geo import get_lat_long, calculate_distance
 from app.enums.house import LocationType, HouseType, Months, WeekOfDay
 
+import numpy as np
+
 class House(BaseModel):
     rooms         : int             = Field( default = 0                                      , alias='Rooms'        )
     distance      : float           = Field( default = 5                                      , alias='Distance'     )
@@ -48,3 +50,25 @@ class House(BaseModel):
 
     def set_day(self, selected_day: WeekOfDay):
         self.day_of_week = selected_day.value
+
+
+    def get_features(self):
+
+        return np.array([
+            self.rooms,
+            self.distance,
+            self.bathroom if self.bathroom is not None else 0,
+            self.car if self.car is not None else 0,
+            self.landsize if self.landsize is not None else 0.0,
+            self.building_area if self.building_area is not None else 0.0,
+            self.year_built if self.year_built is not None else 0,
+            self.latitude if self.latitude is not None else 0.0,
+            self.longitude if self.longitude is not None else 0.0,
+            self.year,
+            self.month,
+            self.day_of_week,
+            self.age_at_sale if self.age_at_sale is not None else 0,
+            self.type_h if self.type_h is not None else 0,
+            self.type_t if self.type_t is not None else 0,
+            self.type_u if self.type_u is not None else 0,
+        ]).reshape(1,-1)
