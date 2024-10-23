@@ -9,3 +9,5 @@ plotly==5.24.1
 notebook==7.2.2
 ipywidgets==8.1.5
 scikit-learn==1.5.2
+matplotlib==3.9.2
+seaborn==0.13.2

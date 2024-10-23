@@ -23,3 +23,10 @@ Download the data for this project from below:
 https://www.kaggle.com/datasets/dansbecker/melbourne-housing-snapshot
 
 Locate the data in a subfolder `data`.
+
+# Add .venv to notebook's kernel
+
+```
+pip install ipykernel
+python -m ipykernel install --user --name=mel-realestate --display-name "mel-realestate"
+```
