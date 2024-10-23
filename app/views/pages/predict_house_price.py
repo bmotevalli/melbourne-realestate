@@ -16,6 +16,11 @@ st.title("Welcome to Predict House Prices!")
 
 house =  House()
 
+if 'house_predict' not in st.session_state:
+    st.session_state.house_predict = house
+
+house = st.session_state.house_predict
+
 def convert_to_float(val_str, val_default = 0):
     try:
         return float(val_str)
