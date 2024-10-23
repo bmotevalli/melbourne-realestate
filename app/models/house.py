@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 from app.utils.geo import get_lat_long, calculate_distance
-from app.enums.house import LocationType
+from app.enums.house import LocationType, HouseType, Months, WeekOfDay
 
 class House(BaseModel):
     rooms         : int             = Field( default = 0                                      , alias='Rooms'        )
@@ -37,3 +37,14 @@ class House(BaseModel):
         if self.latitude and self.longitude:
             self.distance = calculate_distance(self.latitude, self.longitude)
 
+
+    def set_house_type(self, selected_house_type):
+        self.type_h = int(selected_house_type == HouseType.HOUSE)
+        self.type_t = int(selected_house_type == HouseType.TOWN_HOUSE)
+        self.type_u = int(selected_house_type == HouseType.UNIT)
+
+    def set_month(self, selected_month: Months):
+        self.month = selected_month.value
+
+    def set_day(self, selected_day: WeekOfDay):
+        self.day_of_week = selected_day.value
