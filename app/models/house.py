@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 from app.utils.geo import get_lat_long, calculate_distance
+from app.enums.house import LocationType
 
 class House(BaseModel):
     rooms         : int             = Field( default = 0                                      , alias='Rooms'        )
@@ -22,7 +23,7 @@ class House(BaseModel):
     address       : Optional[str]   = Field( default ="102 Camberwell Rd, Hawthorn East, VIC" , alias='Address'      )
     price         : Optional[float] = Field( default =None                                    , alias='Price'        )
 
-    selected_location_type: Optional[str] = None
+    selected_location_type: LocationType = LocationType.ADDRESS
 
     @property
     def age_at_sale(self):
