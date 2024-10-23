@@ -1,6 +1,8 @@
 from geopy.geocoders import Nominatim
 import math
 
+melb_lat_lng = [-37.8142454, 144.9631732]
+
 def get_lat_long(address: str):
     # Initialize Nominatim API
     geolocator = Nominatim(user_agent="house_geocoder")
@@ -14,15 +16,15 @@ def get_lat_long(address: str):
     raise ValueError(f"The addres could not be located: {address}")
 
 
-def calculate_distance(lat1, lon1, lat2, lon2):
+def calculate_distance(lat, lon):
     # Radius of the Earth in kilometers
     R = 6371.0
 
     # Convert latitude and longitude from degrees to radians
-    lat1_rad = math.radians(lat1)
-    lon1_rad = math.radians(lon1)
-    lat2_rad = math.radians(lat2)
-    lon2_rad = math.radians(lon2)
+    lat1_rad = math.radians(lat)
+    lon1_rad = math.radians(lon)
+    lat2_rad = math.radians(melb_lat_lng[0])
+    lon2_rad = math.radians(melb_lat_lng[1])
 
     # Differences in coordinates
     dlat = lat2_rad - lat1_rad

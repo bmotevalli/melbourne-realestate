@@ -11,8 +11,8 @@ class House(BaseModel):
     landsize      : float           = Field( default = 100                                    , alias='Landsize'     )
     building_area : float           = Field( default = 0                                      , alias='BuildingArea' )
     year_built    : int             = Field( default = 1990                                   , alias='YearBuilt'    )
-    latitude      : Optional[float] = Field( default =None                                    , alias='Lattitude'    )
-    longitude     : Optional[float] = Field( default =None                                    , alias='Longtitude'   )
+    latitude      : Optional[float] = Field( default =-37.8276058                             , alias='Lattitude'    )
+    longitude     : Optional[float] = Field( default =145.0523839                             , alias='Longtitude'   )
     year          : int             = Field( default = 2010                                   , alias='Year'         )
     month         : int             = Field( default = 1                                      , alias='Month'        )
     day_of_week   : int             = Field( default = 1                                      , alias='DayOfWeek'    )
@@ -22,7 +22,7 @@ class House(BaseModel):
     address       : Optional[str]   = Field( default ="102 Camberwell Rd, Hawthorn East, VIC" , alias='Address'      )
     price         : Optional[float] = Field( default =None                                    , alias='Price'        )
 
-    # age_at_sale   : int             = Field(               alias='AgeAtSale'    )
+    selected_location_type: Optional[str] = None
 
     @property
     def age_at_sale(self):
@@ -33,7 +33,6 @@ class House(BaseModel):
             self.latitude, self.longitude = get_lat_long(self.address)
 
     def get_distance_from_cbd(self):
-        lat_cbd, lng_cbd = get_lat_long("Melbourne, VIC")
         if self.latitude and self.longitude:
-            self.distance = calculate_distance(lat_cbd, lng_cbd, self.latitude, self.longitude)
+            self.distance = calculate_distance(self.latitude, self.longitude)
 
