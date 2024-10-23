@@ -166,3 +166,5 @@ data/*
 .venv/*
 
 *.pkl
+
+*kill*

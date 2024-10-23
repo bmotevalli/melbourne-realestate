@@ -11,3 +11,4 @@ ipywidgets==8.1.5
 scikit-learn==1.5.2
 matplotlib==3.9.2
 seaborn==0.13.2
+# geopy==2.4.1
