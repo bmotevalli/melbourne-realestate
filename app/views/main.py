@@ -2,7 +2,7 @@ import streamlit as st
 
 # Set the page title
 st.set_page_config(
-    page_title="Hello World App",
+    page_title="Main Page",
     layout="wide"
 )
 
