@@ -52,3 +52,9 @@ macOS/Linux:
 ```bash
 export PYTHONPATH="/path/to/your_project"
 ```
+
+# Run the app
+
+```
+streamlit run app\views\main.py --server.runOnSave=true
+```
