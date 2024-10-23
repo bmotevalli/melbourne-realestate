@@ -11,3 +11,6 @@ st.title("Hello, World!")
 
 # Display some text
 st.write("Welcome to your first Streamlit app!")
+
+with st.sidebar:
+    st.write("### Sidebar")
