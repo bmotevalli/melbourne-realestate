@@ -14,11 +14,14 @@ st.title("Welcome to Predict House Prices!")
 
 house = House()
 
-house.address = st.text_input("Address", "102 Camberwell Rd, Hawthorn East, VIC")
+house.address = st.text_input("Address", house.address)
 
 if st.button("Get Geo Locations"):
-    house.address_to_lat_lng()
-    house.get_distance_from_cbd()
-    st.write(f"Latitude: {house.latitude}")
-    st.write(f"Longitude: {house.longitude}")
-    st.write(f"Distance: {house.distance:.2f} km")
+    try:
+        house.address_to_lat_lng()
+        house.get_distance_from_cbd()
+        st.write(f"Latitude: {house.latitude}")
+        st.write(f"Longitude: {house.longitude}")
+        st.write(f"Distance: {house.distance:.2f} km")
+    except:
+        st.error("An error occured, please retry or check your address.")
