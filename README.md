@@ -30,3 +30,25 @@ Locate the data in a subfolder `data`.
 pip install ipykernel
 python -m ipykernel install --user --name=mel-realestate --display-name "mel-realestate"
 ```
+
+# Add your project to PYTHONPATH
+
+WinOS:
+
+- Powershell
+
+```powershell
+$env:PYTHONPATH = "C:\path\to\your_project"
+```
+
+- CMD
+
+```cmd
+set PYTHONPATH=C:\path\to\your_project
+```
+
+macOS/Linux:
+
+```bash
+export PYTHONPATH="/path/to/your_project"
+```
