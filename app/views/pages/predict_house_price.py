@@ -1,4 +1,7 @@
+import folium
 import streamlit as st
+
+from streamlit_folium import st_folium
 
 from app.models.house import House
 from app.utils.geo import melb_lat_lng
@@ -101,8 +104,34 @@ def render_other_inputs():
         house.set_day(WeekOfDay[selected_day.upper()])
 
 
+def render_pop_up():
+    if house.price:
+        return f"Predicted price is {house.price}"
+    else:
+        return "There is no price for this house. Please use predict button."
+    
 
 
 render_house_location()
 with st.sidebar:
     render_other_inputs()
+
+
+m = folium.Map(location=[melb_lat_lng[0], melb_lat_lng[1]], zoom_start=10)
+
+folium.Marker(
+    location=[house.latitude, house.longitude],
+    popup=folium.Popup(render_pop_up(), parse_html=False),
+    # tooltip="Tooltip!",
+).add_to(m)
+
+# folium.Marker(
+#     location=[45.5, -112],
+#     popup=folium.Popup("Popup 2!", parse_html=False),
+#     tooltip="Tooltip 2!",
+# ).add_to(m)
+
+out = st_folium(m, height=500, use_container_width=True)
+
+st.write("Popup:", out["last_object_clicked_popup"])
+# st.write("Tooltip:", out["last_object_clicked_tooltip"])
