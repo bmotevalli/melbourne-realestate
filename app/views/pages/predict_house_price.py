@@ -57,6 +57,8 @@ def render_house_location():
         house.latitude = st.text_input("Latitude", house.latitude, key="Latitude", disabled=is_disabled)
         if st.button("Predict Price"):
             house.price = predict_price(house)
+        
+        if house.price is not None and house.price != 0:
             st.success(f"House Price is: {house.price:,.0f} $")
     with c2:
         house.longitude = st.text_input("Longitude", house.longitude, key="Longitude", disabled=is_disabled)
